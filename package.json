@@ -1,0 +1,21 @@
+{
+  "name": "sails-hook-model-history",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "sails": {
+    "isHook": true
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "async": "^1.5.2",
+    "sails": "~0.11.3",
+    "sails-util-mvcsloader": "^0.3.0",
+    "waterline": "^0.12.1",
+    "waterline-schema": "^0.2.0"
+  }
+}
