@@ -1,15 +1,14 @@
 'use strict';
 
 var HistoryModelService = require('./lib/HistoryModelService');
+var loader = require('sails-util-mvcsloader')(sails);
 
 module.exports = function (sails) {
-  var loader = require('sails-util-mvcsloader')(sails);
-
   loader.configure();
   return {
     initialize: function (next) {
       loader.inject(function (err) {
-        HistoryModelService.createModel(sails);
+        HistoryModelService.createModels(sails);
         return next(err);
       });
     }
