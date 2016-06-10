@@ -18,7 +18,7 @@ describe('HistoryModelService', function() {
         buyer: {
           identity: 'buyer',
           tableName: 'buyers',
-          connection: ['dbPostgresql'],
+          connection: ['memoryDB'],
           migrate: 'safe',
           historyTableSuffix: '_history',
           historyTablePrefix: '',
@@ -50,7 +50,7 @@ describe('HistoryModelService', function() {
         'sails-memory': require('sails-memory')
       };
       sails.config.connections = {
-        dbPostgresql: {
+        memoryDB: {
           adapter: 'sails-memory',
           host: 'localhost',
           port: 3306,
@@ -65,7 +65,7 @@ describe('HistoryModelService', function() {
         sails.config.connections = {};
       });
       it('should log error in creation of history model.', function() {
-        var logSpy = sandbox.spy(sails.log, 'debug');
+        var logSpy = sandbox.spy(sails.log, 'error');
         HistoryModelService.createModels(sails);
         logSpy.called.should.be.true;
         logSpy.calledWith('Error creating history models').should.be.true;
@@ -83,29 +83,29 @@ describe('HistoryModelService', function() {
     context('when history model is created', function(){
       it('should create of history model.', function() {
         assert(Buyer);
-        assert(buyerHistory);
-        assert(buyerHistory.attributes.name);
-        assert(buyerHistory.create);
+        assert(BuyerHistory);
+        assert(BuyerHistory.attributes.name);
+        assert(BuyerHistory.create);
       });
       it('should be able to invoke create', function() {
-        buyerHistory.create({ id: '1',
+        BuyerHistory.create({ id: '1',
           name: 'name'
         }).exec(function createHistory(err, model) {
           assert(model.name === 'name');
         });
       });
       it('should be able to invoke update', function() {
-        buyerHistory.update({id: '1'}, {
+        BuyerHistory.update({id: '1'}, {
           name: 'name2'
         }).exec(function updateHistory(err, model) {
           assert(model[0].name === 'name2');
         });
       });
       it('should be able to invoke destroy', function() {
-        buyerHistory.update({id: '1'}).exec(function deleteHistory(err) {
+        BuyerHistory.destroy({id: '1'}).exec(function deleteHistory(err) {
           assert(err == null);
         });
-        buyerHistory.findOne({
+        BuyerHistory.findOne({
           id: '1'
         }).exec(function findMerchant(error, history) {
           assert(history == null);

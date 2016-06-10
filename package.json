@@ -1,58 +1,37 @@
 {
   "name": "sails-hook-model-history",
-  "version": "0.0.0",
-  "description": "",
+  "version": "1.0.0",
+  "description": "Sails Model History automates the creation of models for journaling.",
   "homepage": "",
-  "author": {
-    "name": "rezley.chua",
-    "email": "rezley.chua@orangeandbronze.com",
-    "url": ""
-  },
+  "author": "PayMaya Philippines Inc.",
+  "license": "SEE LICENSE IN LICENSE",
   "files": [
     "lib"
   ],
   "main": "lib/index.js",
-  "keywords": [
-    ""
-  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "sails": {
     "isHook": true
   },
-  "devDependencies": {
-    "eslint": "^2.1.0",
-    "eslint-config-xo-space": "^0.13.0",
-    "gulp": "^3.9.0",
-    "gulp-eslint": "^2.0.0",
-    "gulp-exclude-gitignore": "^1.0.0",
-    "gulp-line-ending-corrector": "^1.0.1",
-    "gulp-istanbul": "^0.10.3",
-    "gulp-mocha": "^2.0.0",
-    "gulp-plumber": "^1.0.0",
-    "gulp-nsp": "^2.1.0",
-    "gulp-coveralls": "^0.1.0",
+  "dependencies": {
     "async": "^1.5.2",
     "sails": "~0.11.3",
     "sails-util-mvcsloader": "^0.3.0",
     "waterline": "^0.12.1",
-    "waterline-schema": "^0.2.0"
-  },
-  "eslintConfig": {
-    "extends": "xo-space",
-    "env": {
-      "mocha": true
-    }
-  },
-  "repository": "https://github.com/PayMaya/sails-hook-model-history.git",
-  "scripts": {
-    "prepublish": "gulp prepublish",
-    "test": "gulp"
-  },
-  "private": true,
-  "dependencies": {
+    "waterline-schema": "^0.2.0",
     "chai": "^3.5.0",
     "mocha": "^2.5.3",
     "rekuire": "^0.1.9",
     "sails-memory": "^0.10.7",
     "sails-test-helper": "^0.5.0"
+  },
+  "devDependencies": {
+    "eslint": "^2.10.2",
+    "eslint-config-airbnb": "^9.0.1",
+    "eslint-plugin-import": "^1.8.0",
+    "eslint-plugin-jsx-a11y": "^1.2.2",
+    "eslint-plugin-react": "^5.1.1"
   }
 }
