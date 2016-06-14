@@ -1,21 +1,37 @@
 {
   "name": "sails-hook-model-history",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "version": "1.1.0",
+  "description": "Sails Model History automates the creation of models for journaling.",
+  "homepage": "",
+  "author": "PayMaya Philippines Inc.",
+  "license": "SEE LICENSE IN LICENSE",
+  "files": [
+    "lib"
+  ],
+  "main": "lib/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "sails": {
     "isHook": true
   },
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "async": "^1.5.2",
     "sails": "~0.11.3",
     "sails-util-mvcsloader": "^0.3.0",
     "waterline": "^0.12.1",
     "waterline-schema": "^0.2.0"
+  },
+  "devDependencies": {
+    "eslint": "^2.10.2",
+    "eslint-config-airbnb": "^9.0.1",
+    "eslint-plugin-import": "^1.8.0",
+    "eslint-plugin-jsx-a11y": "^1.2.2",
+    "eslint-plugin-react": "^5.1.1",
+    "chai": "^3.5.0",
+    "mocha": "^2.5.3",
+    "rekuire": "^0.1.9",
+    "sails-memory": "^0.10.7",
+    "sails-test-helper": "^0.5.0"
   }
 }
