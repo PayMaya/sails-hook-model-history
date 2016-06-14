@@ -12,39 +12,41 @@ describe('HistoryModelService', function() {
   });
   describe('.createModels', function() {
     var waterlineServiceStub;
+    var buyerDetails;
 
     beforeEach(function() {
-      sails.models = {
-        buyer: {
-          identity: 'buyer',
-          tableName: 'buyers',
-          connection: ['memoryDB'],
-          migrate: 'safe',
-          historyTableSuffix: '_history',
-          historyTablePrefix: '',
-          historyModelSuffix: 'History',
-          history: true,
-          attributes: {
-            id: {
-              type: 'string',
-              primaryKey: true
-            },
-            name: {
-              type: 'string',
-              required: true,
-              columnName: 'first_name'
-            },
-            createdAt: {
-              type: 'date',
-              columnName: 'created_at'
-            },
-            updatedAt: {
-              type: 'date',
-              columnName: 'updated_at'
-            }
+      buyerDetails = {
+        identity: 'buyer',
+        tableName: 'buyers',
+        connection: ['memoryDB'],
+        migrate: 'safe',
+        historyTableSuffix: '_history',
+        historyTablePrefix: '',
+        historyModelSuffix: 'History',
+        history: true,
+        attributes: {
+          id: {
+            type: 'string',
+            primaryKey: true
           },
-          globalId: 'Buyer'
-        }
+          name: {
+            type: 'string',
+            required: true,
+            columnName: 'first_name'
+          },
+          createdAt: {
+            type: 'date',
+            columnName: 'created_at'
+          },
+          updatedAt: {
+            type: 'date',
+            columnName: 'updated_at'
+          }
+        },
+        globalId: 'Buyer'
+      };
+      sails.models = {
+        buyer: buyerDetails
       };
       sails.adapters = {
         'sails-memory': require('sails-memory')
@@ -61,48 +63,48 @@ describe('HistoryModelService', function() {
     });
 
     context('when error creation of history is raised', function() {
-      beforeEach(function() {
+      before(function() {
         sails.config.connections = {};
       });
       it('should log error in creation of history model.', function() {
-        var logSpy = sandbox.spy(sails.log, 'error');
-        HistoryModelService.createModels(sails);
-        logSpy.called.should.be.true;
-        logSpy.calledWith('Error creating history models').should.be.true;
+        HistoryModelService.createModels(sails, function(error, result){
+          assert(error);
+        });
       });
     });
-    context('when successful creation of history', function() {
-      it('should load models.', function() {
-        var logSpy = sandbox.spy(sails.log, 'info');
-        HistoryModelService.createModels(sails);
-        logSpy.calledOnce.should.be.true;
-        logSpy.calledWith('History Table Name buyers').should.be.true;
+    context('when history model is created', function() {
+      it('should create Buyer model.', function() {
+        HistoryModelService.createModels(sails, function(error, result) {
+          assert(Buyer);
+          assert(Buyer.attributes == buyerDetails.attributes);
+        });
       });
-
-    });
-    context('when history model is created', function(){
-      it('should create of history model.', function() {
-        assert(Buyer);
+      it('should create BuyerHistory model.', function() {
         assert(BuyerHistory);
-        assert(BuyerHistory.attributes.name);
+        assert(BuyerHistory.attributes.actionType);
         assert(BuyerHistory.create);
       });
       it('should be able to invoke create', function() {
-        BuyerHistory.create({ id: '1',
+        BuyerHistory.create({
+          id: '1',
           name: 'name'
         }).exec(function createHistory(err, model) {
           assert(model.name === 'name');
         });
       });
       it('should be able to invoke update', function() {
-        BuyerHistory.update({id: '1'}, {
+        BuyerHistory.update({
+          id: '1'
+        }, {
           name: 'name2'
         }).exec(function updateHistory(err, model) {
           assert(model[0].name === 'name2');
         });
       });
       it('should be able to invoke destroy', function() {
-        BuyerHistory.destroy({id: '1'}).exec(function deleteHistory(err) {
+        BuyerHistory.destroy({
+          id: '1'
+        }).exec(function deleteHistory(err) {
           assert(err == null);
         });
         BuyerHistory.findOne({
@@ -117,4 +119,3 @@ describe('HistoryModelService', function() {
 after(function(done) {
   sails.lower(done);
 });
-
