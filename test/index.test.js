@@ -1,6 +1,5 @@
 var assert = require('assert');
 var Sails = require('sails');
-var sails;
 
 before(function(done) {
   // Hook will timeout in 10 seconds
@@ -60,9 +59,8 @@ before(function(done) {
     }
   }, function(err, _sails) {
     if (err) {
-      console.log(err)
-      return done(err);}
-    sails = _sails;
+      return done(err);
+    }
     return done();
   });
 });
