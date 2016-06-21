@@ -1,7 +1,7 @@
 {
   "name": "sails-hook-model-history",
-  "version": "1.1.0",
-  "description": "Sails Model History automates the creation of models for journaling.",
+  "version": "1.2.0",
+  "description": "Sails Model History automates the creation of models for journaling.`1",
   "homepage": "",
   "author": "PayMaya Philippines Inc.",
   "license": "SEE LICENSE IN LICENSE",
